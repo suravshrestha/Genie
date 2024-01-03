@@ -6,12 +6,15 @@ export async function getApiKey() {
 
   if (!apiKey) {
     apiKey = await vscode.window.showInputBox({
-      prompt: "Genie: OpenAI API Key is not configured. Please enter your OpenAI API key.",
+      prompt:
+        "Genie: OpenAI API Key is not configured. Please enter your OpenAI API key.",
       ignoreFocusOut: true, // Allows the input box to stay open even if focus moves outside VS Code
     });
 
     if (!apiKey) {
-      vscode.window.showErrorMessage("Genie: OpenAI API Key is required. Unable to proceed.");
+      vscode.window.showErrorMessage(
+        "Genie: OpenAI API Key is required. Unable to proceed.",
+      );
       return "";
     }
 

@@ -25,7 +25,7 @@ export function activate(context: vscode.ExtensionContext) {
       {
         preserveFocus: true, // new webview panel will not take focus
         viewColumn: vscode.ViewColumn.Beside, // Editor column to show the new webview panel in.
-      }
+      },
     );
 
     const updateWebview = async () => {
@@ -35,7 +35,7 @@ export function activate(context: vscode.ExtensionContext) {
 
       try {
         const documentedCode = await document(
-          vscode.window.activeTextEditor?.document.getText() || ""
+          vscode.window.activeTextEditor?.document.getText() || "",
         );
 
         log("Documented Code:", documentedCode);
