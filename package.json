@@ -1,7 +1,7 @@
 {
   "name": "genie",
   "displayName": "Genie",
-  "description": "Your companion for boosting your coding pr productivity.l",
+  "description": "Your companion for boosting your coding productivity.",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.85.0"
@@ -14,10 +14,21 @@
   "contributes": {
     "commands": [
       {
-        "command": "genie.helloWorld",
-        "title": "Hello World"
+        "command": "genie.document",
+        "title": "Document",
+        "category": "Genie"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "Genie",
+      "properties": {
+        "genie.apiKey": {
+          "type": "string",
+          "markdownDescription": "Your OpenAI API Key. If you haven't configured this setting yet, you can obtain your API key through the [Open AI Platform](https://platform.openai.com/api-keys).",
+          "order": 0
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run package",
@@ -31,17 +42,20 @@
     "test": "vscode-test"
   },
   "devDependencies": {
-    "@types/vscode": "^1.85.0",
     "@types/mocha": "^10.0.6",
     "@types/node": "18.x",
+    "@types/vscode": "^1.85.0",
     "@typescript-eslint/eslint-plugin": "^6.15.0",
     "@typescript-eslint/parser": "^6.15.0",
-    "eslint": "^8.56.0",
-    "typescript": "^5.3.3",
-    "ts-loader": "^9.5.1",
-    "webpack": "^5.89.0",
-    "webpack-cli": "^5.1.4",
     "@vscode/test-cli": "^0.0.4",
-    "@vscode/test-electron": "^2.3.8"
+    "@vscode/test-electron": "^2.3.8",
+    "eslint": "^8.56.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.3.3",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "openai": "^4.24.1"
   }
 }
