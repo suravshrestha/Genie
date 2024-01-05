@@ -1,7 +1,7 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from "vscode";
-import { document } from "./services/document";
+import { getModelResponse } from "./services/gpt";
 
 import { log } from "./utils/logger";
 
@@ -34,8 +34,9 @@ export function activate(context: vscode.ExtensionContext) {
       }
 
       try {
-        const documentedCode = await document(
+        const documentedCode = await getModelResponse(
           vscode.window.activeTextEditor?.document.getText() || "",
+          "document",
         );
 
         log("Documented Code:", documentedCode);
@@ -63,7 +64,6 @@ function getWebviewContent(content: string) {
 	<html lang="en">
 		<head>
 			<meta charset="UTF-8">
-			<title>Cat Coding</title>
 		</head>
 
 		<body>
