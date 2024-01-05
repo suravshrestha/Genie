@@ -11,7 +11,7 @@ export async function getModelResponse(code: string, action: string) {
   let prompt = "";
 
   if (action === "document") {
-    prompt = `Given the following code snippet ${code} include comprehensive docstrings directly within the code. Assume the audience has intermediate-level programming knowledge. Do not provide documentation as a separate text; instead, incorporate it as docstrings and comments within the code.`;
+    prompt = `Given the following code snippet ${code} include comprehensive docstrings directly within the code, do not modify the actual code. Assume the audience has intermediate-level programming knowledge. Do not provide documentation as a separate text; instead, incorporate it as docstrings and comments within the code.`;
   }
 
   try {
