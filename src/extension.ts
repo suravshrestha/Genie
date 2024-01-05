@@ -5,12 +5,46 @@ import { getModelResponse } from "./services/gpt";
 
 import { log } from "./utils/logger";
 
+const createWebviewPanel = (panelTitle: string) => {
+  // Create and show a new webview
+  const panel = vscode.window.createWebviewPanel(
+    "Genie", // Identifies the type of the webview. Used internally
+    panelTitle, // Title of the panel displayed to the user
+    {
+      preserveFocus: true, // new webview panel will not take focus
+      viewColumn: vscode.ViewColumn.Beside, // Editor column to show the new webview panel in.
+    },
+  );
+
+  return panel;
+};
+
+const updateWebview = async (panel: vscode.WebviewPanel, action: string) => {
+  if (!panel) {
+    return;
+  }
+
+  try {
+    const response = await getModelResponse(
+      vscode.window.activeTextEditor?.document.getText() || "",
+      action,
+    );
+
+    log(action);
+    log(response);
+
+    // Set its HTML content
+    // Send the content of the active file, from where the command was invoked to the webview
+    // but also preserve the formatting from the original file
+    panel.webview.html = getWebviewContent(response);
+  } catch (error) {
+    log("Error updating webview:", error);
+  }
+};
+
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-  // Track the current panel with a webview
-  let panel: vscode.WebviewPanel | undefined = undefined;
-
   // The command has been defined in the package.json file
   // Now provide the implementation of the command with registerCommand
   // The commandId parameter must match the command field in package.json
@@ -18,39 +52,9 @@ export function activate(context: vscode.ExtensionContext) {
     // The code you place here will be executed every time your command is executed
     // Display a message box to the user
 
-    // Create and show a new webview
-    panel = vscode.window.createWebviewPanel(
-      "Genie", // Identifies the type of the webview. Used internally
-      "Document", // Title of the panel displayed to the user
-      {
-        preserveFocus: true, // new webview panel will not take focus
-        viewColumn: vscode.ViewColumn.Beside, // Editor column to show the new webview panel in.
-      },
-    );
+    const panel: vscode.WebviewPanel = createWebviewPanel("Documented Code");
 
-    const updateWebview = async () => {
-      if (!panel) {
-        return;
-      }
-
-      try {
-        const documentedCode = await getModelResponse(
-          vscode.window.activeTextEditor?.document.getText() || "",
-          "document",
-        );
-
-        log("Documented Code:", documentedCode);
-
-        // Set its HTML content
-        // Send the content of the active file, from where the command was invoked to the webview
-        // but also preserve the formatting from the original file
-        panel.webview.html = getWebviewContent(documentedCode);
-      } catch (error) {
-        log("Error updating webview:", error);
-      }
-    };
-
-    updateWebview();
+    updateWebview(panel, "document");
   });
 
   context.subscriptions.push(documentCode);
