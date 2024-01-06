@@ -27,6 +27,11 @@
         "command": "genie.optimize",
         "title": "Optimize",
         "category": "Genie"
+      },
+      {
+        "command": "genie.unitTest",
+        "title": "Unit Test",
+        "category": "Genie"
       }
     ],
     "configuration": {

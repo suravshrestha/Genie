@@ -69,7 +69,18 @@ export function activate(context: vscode.ExtensionContext) {
     updateWebview(panel, "optimize");
   });
 
-  context.subscriptions.push(documentCode, explainCode, optimizeCode);
+  const unitTests = vscode.commands.registerCommand("genie.unitTest", () => {
+    const panel: vscode.WebviewPanel = createWebviewPanel("Unit Tests");
+
+    updateWebview(panel, "unit-test");
+  });
+
+  context.subscriptions.push(
+    documentCode,
+    explainCode,
+    optimizeCode,
+    unitTests,
+  );
 }
 
 // This method is called when your extension is deactivated

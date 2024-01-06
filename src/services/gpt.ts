@@ -16,6 +16,8 @@ export async function getModelResponse(code: string, action: string) {
     prompt = `Given the following code snippet ${code} explain what the code does. Assume the audience has intermediate-level programming knowledge.`;
   } else if (action === "optimize") {
     prompt = `Given the following code snippet ${code} optimize the code. Do not return any other text.`;
+  } else if (action === "unit-test") {
+    prompt = `Given the following code snippet ${code} write unit tests for the code.`;
   }
 
   try {
