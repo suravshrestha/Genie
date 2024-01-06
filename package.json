@@ -32,8 +32,22 @@
         "command": "genie.unitTest",
         "title": "Unit Test",
         "category": "Genie"
+      },
+      {
+        "command": "genie.copyToClipboard",
+        "title": "Copy to Clipboard",
+        "category": "Genie",
+        "icon": "$(notebook)"
       }
     ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "genie.copyToClipboard",
+          "group": "navigation"
+        }
+      ]
+    },
     "configuration": {
       "title": "Genie",
       "properties": {

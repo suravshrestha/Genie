@@ -13,36 +13,38 @@ const showOutput = async (action: string, testingLibrary?: string) => {
     return;
   }
 
-  try {
-    const response = await getModelResponse(
-      document.getText(),
-      action,
-      testingLibrary,
-    );
+  vscode.window.showInformationMessage(
+    "Genie: Generating output, please wait...",
+  );
 
-    vscode.window.showInformationMessage("Genie: Generating output...");
+  getModelResponse(document.getText(), action, testingLibrary)
+    .then((response) => {
+      vscode.window.showInformationMessage(
+        "Genie: Output generated successfully",
+      );
 
-    log(action);
-    log(response);
+      log(action);
+      log(response);
 
-    vscode.workspace
-      .openTextDocument({
-        content: response,
-        language: document.languageId,
-      })
-      .then((doc) => {
-        vscode.window.showTextDocument(doc, {
-          viewColumn: vscode.ViewColumn.Beside, // Editor column to show the text document panel in.
-          preserveFocus: true, // new text document panel will not take focus
+      vscode.workspace
+        .openTextDocument({
+          content: response,
+          language: document.languageId,
+        })
+        .then((doc) => {
+          vscode.window.showTextDocument(doc, {
+            viewColumn: vscode.ViewColumn.Beside, // Editor column to show the text document panel in.
+            preserveFocus: true, // new text document panel will not take focus
+          });
         });
-      });
-  } catch (error) {
-    vscode.window.showErrorMessage(
-      "Genie: An error occurred while generating output",
-    );
+    })
+    .catch((error) => {
+      vscode.window.showErrorMessage(
+        "Genie: An error occurred while generating output",
+      );
 
-    log("Error in showOutput:", error);
-  }
+      log("Error in showOutput:", error);
+    });
 };
 
 // This method is called when your extension is activated
@@ -93,11 +95,25 @@ export function activate(context: vscode.ExtensionContext) {
     },
   );
 
+  const copyToClipboard = vscode.commands.registerCommand(
+    "genie.copyToClipboard",
+    async () => {
+      const document = vscode.window.activeTextEditor?.document;
+
+      if (!document || !document.getText()) {
+        return;
+      }
+
+      vscode.env.clipboard.writeText(document.getText());
+    },
+  );
+
   context.subscriptions.push(
     documentCode,
     explainCode,
     optimizeCode,
     unitTests,
+    copyToClipboard,
   );
 }
 
