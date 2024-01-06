@@ -57,7 +57,13 @@ export function activate(context: vscode.ExtensionContext) {
     updateWebview(panel, "document");
   });
 
-  context.subscriptions.push(documentCode);
+  const explainCode = vscode.commands.registerCommand("genie.explain", () => {
+    const panel: vscode.WebviewPanel = createWebviewPanel("Explained Code");
+
+    updateWebview(panel, "explain");
+  });
+
+  context.subscriptions.push(documentCode, explainCode);
 }
 
 // This method is called when your extension is deactivated

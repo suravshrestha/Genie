@@ -17,6 +17,11 @@
         "command": "genie.document",
         "title": "Document",
         "category": "Genie"
+      },
+      {
+        "command": "genie.explain",
+        "title": "Explain",
+        "category": "Genie"
       }
     ],
     "configuration": {
