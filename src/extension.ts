@@ -1,9 +1,10 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from "vscode";
-import { getModelResponse } from "./services/gpt";
 
+import { getModelResponse } from "./services/gpt";
 import { log } from "./utils/logger";
+import { testingLibraries } from "./utils/constants";
 
 const createWebviewPanel = (panelTitle: string) => {
   // Create and show a new webview
@@ -19,7 +20,11 @@ const createWebviewPanel = (panelTitle: string) => {
   return panel;
 };
 
-const updateWebview = async (panel: vscode.WebviewPanel, action: string) => {
+const updateWebview = async (
+  panel: vscode.WebviewPanel,
+  action: string,
+  testingLibrary?: string,
+) => {
   if (!panel) {
     return;
   }
@@ -28,6 +33,7 @@ const updateWebview = async (panel: vscode.WebviewPanel, action: string) => {
     const response = await getModelResponse(
       vscode.window.activeTextEditor?.document.getText() || "",
       action,
+      testingLibrary,
     );
 
     log(action);
@@ -69,11 +75,39 @@ export function activate(context: vscode.ExtensionContext) {
     updateWebview(panel, "optimize");
   });
 
-  const unitTests = vscode.commands.registerCommand("genie.unitTest", () => {
-    const panel: vscode.WebviewPanel = createWebviewPanel("Unit Tests");
+  const unitTests = vscode.commands.registerCommand(
+    "genie.unitTest",
+    async () => {
+      const languageId: string =
+        vscode.window.activeTextEditor?.document.languageId || "";
 
-    updateWebview(panel, "unit-test");
-  });
+      if (!languageId) {
+        vscode.window.showErrorMessage("No language found for this file");
+        return;
+      }
+
+      const testingFrameworksObj = testingLibraries[languageId];
+
+      if (!testingFrameworksObj) {
+        const panel: vscode.WebviewPanel = createWebviewPanel("Unit Tests");
+
+        updateWebview(panel, "unit-test");
+
+        return;
+      }
+
+      const selectedTestingLibrary = await vscode.window.showQuickPick(
+        testingLibraries[languageId],
+      );
+
+      if (selectedTestingLibrary) {
+        const panel: vscode.WebviewPanel = createWebviewPanel("Unit Tests");
+
+        // Run command based on the selected library
+        updateWebview(panel, "unit-test", selectedTestingLibrary);
+      }
+    },
+  );
 
   context.subscriptions.push(
     documentCode,

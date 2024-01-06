@@ -3,7 +3,11 @@ import { getApiKey } from "../utils/getApiKey";
 
 import OpenAI from "openai";
 
-export async function getModelResponse(code: string, action: string) {
+export async function getModelResponse(
+  code: string,
+  action: string,
+  testingLibrary?: string,
+) {
   const openai = new OpenAI({
     apiKey: await getApiKey(),
   });
@@ -17,7 +21,7 @@ export async function getModelResponse(code: string, action: string) {
   } else if (action === "optimize") {
     prompt = `Given the following code snippet ${code} optimize the code. Do not return any other text.`;
   } else if (action === "unit-test") {
-    prompt = `Given the following code snippet ${code} write unit tests for the code.`;
+    prompt = `Given the following code snippet ${code} write unit tests in ${testingLibrary} for the code. Do not return any other text.`;
   }
 
   try {
