@@ -22,6 +22,11 @@
         "command": "genie.explain",
         "title": "Explain",
         "category": "Genie"
+      },
+      {
+        "command": "genie.optimize",
+        "title": "Optimize",
+        "category": "Genie"
       }
     ],
     "configuration": {

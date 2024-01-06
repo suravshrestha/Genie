@@ -14,6 +14,8 @@ export async function getModelResponse(code: string, action: string) {
     prompt = `Given the following code snippet ${code} include comprehensive docstrings directly within the code, do not modify the actual code. Assume the audience has intermediate-level programming knowledge. Do not provide documentation as a separate text; instead, incorporate it as docstrings and comments within the code.`;
   } else if (action === "explain") {
     prompt = `Given the following code snippet ${code} explain what the code does. Assume the audience has intermediate-level programming knowledge.`;
+  } else if (action === "optimize") {
+    prompt = `Given the following code snippet ${code} optimize the code. Do not return any other text.`;
   }
 
   try {

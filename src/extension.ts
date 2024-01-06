@@ -63,13 +63,22 @@ export function activate(context: vscode.ExtensionContext) {
     updateWebview(panel, "explain");
   });
 
-  context.subscriptions.push(documentCode, explainCode);
+  const optimizeCode = vscode.commands.registerCommand("genie.optimize", () => {
+    const panel: vscode.WebviewPanel = createWebviewPanel("Optimized Code");
+
+    updateWebview(panel, "optimize");
+  });
+
+  context.subscriptions.push(documentCode, explainCode, optimizeCode);
 }
 
 // This method is called when your extension is deactivated
 export function deactivate() {}
 
 function getWebviewContent(content: string) {
+  // Replace < and > with HTML entities
+  content = content.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
   return `<!DOCTYPE html>
 	<html lang="en">
 		<head>
