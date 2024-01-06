@@ -6,45 +6,42 @@ import { getModelResponse } from "./services/gpt";
 import { log } from "./utils/logger";
 import { testingLibraries } from "./utils/constants";
 
-const createWebviewPanel = (panelTitle: string) => {
-  // Create and show a new webview
-  const panel = vscode.window.createWebviewPanel(
-    "Genie", // Identifies the type of the webview. Used internally
-    panelTitle, // Title of the panel displayed to the user
-    {
-      preserveFocus: true, // new webview panel will not take focus
-      viewColumn: vscode.ViewColumn.Beside, // Editor column to show the new webview panel in.
-    },
-  );
+const showOutput = async (action: string, testingLibrary?: string) => {
+  const document = vscode.window.activeTextEditor?.document;
 
-  return panel;
-};
-
-const updateWebview = async (
-  panel: vscode.WebviewPanel,
-  action: string,
-  testingLibrary?: string,
-) => {
-  if (!panel) {
+  if (!document || !document.getText()) {
     return;
   }
 
   try {
     const response = await getModelResponse(
-      vscode.window.activeTextEditor?.document.getText() || "",
+      document.getText(),
       action,
       testingLibrary,
     );
 
+    vscode.window.showInformationMessage("Genie: Generating output...");
+
     log(action);
     log(response);
 
-    // Set its HTML content
-    // Send the content of the active file, from where the command was invoked to the webview
-    // but also preserve the formatting from the original file
-    panel.webview.html = getWebviewContent(response);
+    vscode.workspace
+      .openTextDocument({
+        content: response,
+        language: document.languageId,
+      })
+      .then((doc) => {
+        vscode.window.showTextDocument(doc, {
+          viewColumn: vscode.ViewColumn.Beside, // Editor column to show the text document panel in.
+          preserveFocus: true, // new text document panel will not take focus
+        });
+      });
   } catch (error) {
-    log("Error updating webview:", error);
+    vscode.window.showErrorMessage(
+      "Genie: An error occurred while generating output",
+    );
+
+    log("Error in showOutput:", error);
   }
 };
 
@@ -56,23 +53,15 @@ export function activate(context: vscode.ExtensionContext) {
   // The commandId parameter must match the command field in package.json
   const documentCode = vscode.commands.registerCommand("genie.document", () => {
     // The code you place here will be executed every time your command is executed
-    // Display a message box to the user
-
-    const panel: vscode.WebviewPanel = createWebviewPanel("Documented Code");
-
-    updateWebview(panel, "document");
+    showOutput("document");
   });
 
   const explainCode = vscode.commands.registerCommand("genie.explain", () => {
-    const panel: vscode.WebviewPanel = createWebviewPanel("Explained Code");
-
-    updateWebview(panel, "explain");
+    showOutput("explain");
   });
 
   const optimizeCode = vscode.commands.registerCommand("genie.optimize", () => {
-    const panel: vscode.WebviewPanel = createWebviewPanel("Optimized Code");
-
-    updateWebview(panel, "optimize");
+    showOutput("optimize");
   });
 
   const unitTests = vscode.commands.registerCommand(
@@ -89,9 +78,7 @@ export function activate(context: vscode.ExtensionContext) {
       const testingFrameworksObj = testingLibraries[languageId];
 
       if (!testingFrameworksObj) {
-        const panel: vscode.WebviewPanel = createWebviewPanel("Unit Tests");
-
-        updateWebview(panel, "unit-test");
+        showOutput("unit-test");
 
         return;
       }
@@ -101,10 +88,7 @@ export function activate(context: vscode.ExtensionContext) {
       );
 
       if (selectedTestingLibrary) {
-        const panel: vscode.WebviewPanel = createWebviewPanel("Unit Tests");
-
-        // Run command based on the selected library
-        updateWebview(panel, "unit-test", selectedTestingLibrary);
+        showOutput("unit-test", selectedTestingLibrary);
       }
     },
   );
@@ -119,19 +103,3 @@ export function activate(context: vscode.ExtensionContext) {
 
 // This method is called when your extension is deactivated
 export function deactivate() {}
-
-function getWebviewContent(content: string) {
-  // Replace < and > with HTML entities
-  content = content.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-
-  return `<!DOCTYPE html>
-	<html lang="en">
-		<head>
-			<meta charset="UTF-8">
-		</head>
-
-		<body>
-			<pre>${content}</pre>
-		</body>
-	</html>`;
-}
