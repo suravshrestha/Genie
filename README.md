@@ -1,7 +1,7 @@
 # Genie
 
 <div align="center"> 
-  <img src="https://github.com/suravshrestha/Genie/assets/24486999/b9ffa38a-e889-41c4-b33b-15b5944e02bc" width=250 height=250 />
+  <img src="./images/logo.png" width=250 height=250 />
 </div>
 
 ## Overview
