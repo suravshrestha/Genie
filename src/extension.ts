@@ -29,7 +29,7 @@ const showOutput = async (action: string, testingLibrary?: string) => {
       vscode.workspace
         .openTextDocument({
           content: response,
-          language: document.languageId,
+          language: action === "explain" ? "plaintext" : document.languageId,
         })
         .then((doc) => {
           vscode.window.showTextDocument(doc, {
