@@ -28,7 +28,7 @@ const showOutput = async (action: string, testingLibrary?: string) => {
 
       vscode.workspace
         .openTextDocument({
-          content: response,
+          content: action === "explain" ? formatText(response) : response,
           language: action === "explain" ? "plaintext" : document.languageId,
         })
         .then((doc) => {
@@ -119,3 +119,29 @@ export function activate(context: vscode.ExtensionContext) {
 
 // This method is called when your extension is deactivated
 export function deactivate() {}
+
+// Function to format text with line breaks at word boundaries
+function formatText(text: string) {
+  const maxLineLength = 60;
+  const paragraphs = text.split(/\s+\n/); // Split the text into paragraphs
+
+  let formattedText = "";
+
+  paragraphs.forEach((paragraph) => {
+    let line = "";
+    const words = paragraph.split(/\s+/); // Split each paragraph into words
+
+    words.forEach((word) => {
+      if (line.length + word.length > maxLineLength) {
+        formattedText += line + "\n";
+        line = "";
+      }
+
+      line += word + " ";
+    });
+
+    formattedText += line + "\n\n";
+  });
+
+  return formattedText.trim(); // Trim any trailing whitespace
+}
