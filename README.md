@@ -1,71 +1,57 @@
-# genie README
+# Genie
 
-This is the README for your extension "genie". After writing up a brief description, we recommend including the following sections.
+<div align="center"> 
+  <img src="https://github.com/suravshrestha/Genie/assets/24486999/b9ffa38a-e889-41c4-b33b-15b5944e02bc" width=250 height=250 />
+</div>
+
+## Overview
+
+Genie is an empowering tool designed to assist coders in optimizing, documenting, and explaining their code. It also facilitates the generation of Unit Test cases for your codebase.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- **Optimizing**: Enhance your code's efficiency and performance with Genie's optimization features.
+- **Documenting**: Generate comprehensive documentation to improve code readability and maintainability.
+- **Explaining**: Easily understand code logic and functionality through Genie's intuitive explanations.
+- **Unit Test Generation**: Quickly create Unit Test cases to ensure the robustness of your code. Choose your preferred testing library for seamless integration.
 
-For example if there is an image subfolder under your extension project workspace:
+## Demonstration
 
-\!\[feature X\]\(images/feature-x.png\)
+## Getting Started
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+### Prerequisites
 
-## Requirements
+- [Visual Studio Code](https://code.visualstudio.com/download)
+- OpenAI API key
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+### Installation
 
-## Extension Settings
+Head over to the [Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=suravshrestha.genie) and install the Genie extension.
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+### Usage
 
-For example:
+1. **Open a Code File**: Launch Visual Studio Code and open the code file you want to work on.
 
-This extension contributes the following settings:
+2. **Utilize Genie Commands**: Access Genie's functionality using commands available in the _command palette_. Tailor your code with ease using the following commands:
+   - **Genie: Optimize**
+   - **Genie: Explain**
+   - **Genie: Document**
+   - **Genie: Unit Test**
 
-- `myExtension.enable`: Enable/disable this extension.
-- `myExtension.thing`: Set to `blah` to do something.
+Note: Upon first usage, you will be prompted to input your _OpenAI API key_ in an input box.
 
-## Known Issues
+Make the most of Genie's capabilities and elevate your coding experience! 🚀
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+## Contributing
 
-## Release Notes
+We appreciate your interest in contributing to Genie! If you encounter bugs or have ideas for new features, please don't hesitate to open an issue or submit a pull request.
 
-Users appreciate release notes as you update your extension.
+Before contributing, please take a moment to review our [Contribution Guidelines](CONTRIBUTING.md). These guidelines provide essential information on how to contribute effectively and maintain a collaborative development environment.
 
-### 1.0.0
+Thank you for helping make Genie even better! 🌟
 
-Initial release of ...
+## License
 
-### 1.0.1
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-- [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-- Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-- Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-- Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-- [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-- [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+Happy coding with Genie! 🧞‍♂️
