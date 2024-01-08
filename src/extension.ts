@@ -110,12 +110,40 @@ export function activate(context: vscode.ExtensionContext) {
     },
   );
 
+  const replaceFileWithClipboard = vscode.commands.registerCommand(
+    "genie.replaceFileWithClipboard",
+    async () => {
+      const document = vscode.window.activeTextEditor?.document;
+
+      if (!document) {
+        return;
+      }
+
+      // Read text from clipboard
+      const clipboardText = await vscode.env.clipboard.readText();
+
+      // Replace the entire file content with clipboard text
+      const edit = new vscode.WorkspaceEdit();
+      const firstLine = document.lineAt(0);
+      const lastLine = document.lineAt(document.lineCount - 1);
+      const range = new vscode.Range(firstLine.range.start, lastLine.range.end);
+      edit.replace(document.uri, range, clipboardText);
+
+      vscode.workspace.applyEdit(edit).then(() => {
+        vscode.window.showInformationMessage(
+          "Genie: File content replaced with clipboard content.",
+        );
+      });
+    },
+  );
+
   context.subscriptions.push(
     documentCode,
     explainCode,
     optimizeCode,
     unitTests,
     copyToClipboard,
+    replaceFileWithClipboard,
   );
 }
 

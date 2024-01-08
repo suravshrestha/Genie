@@ -38,12 +38,22 @@
         "title": "Copy to Clipboard",
         "category": "Genie",
         "icon": "$(notebook)"
+      },
+      {
+        "command": "genie.replaceFileWithClipboard",
+        "title": "Replace File with Clipboard",
+        "category": "Genie",
+        "icon": "$(replace)"
       }
     ],
     "menus": {
       "editor/title": [
         {
           "command": "genie.copyToClipboard",
+          "group": "navigation"
+        },
+        {
+          "command": "genie.replaceFileWithClipboard",
           "group": "navigation"
         }
       ]
