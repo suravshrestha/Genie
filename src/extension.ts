@@ -105,6 +105,8 @@ export function activate(context: vscode.ExtensionContext) {
       }
 
       vscode.env.clipboard.writeText(document.getText());
+
+      vscode.window.showInformationMessage("Genie: Copied to clipboard");
     },
   );
 
