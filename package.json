@@ -1,8 +1,14 @@
 {
-  "name": "genie",
-  "displayName": "Genie",
+  "name": "genie-coding-companion",
+  "displayName": "Genie - Coding Companion",
   "description": "Your companion for boosting your coding productivity.",
-  "version": "0.0.1",
+  "publisher": "suravshrestha",
+  "version": "0.0.2",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/suravshrestha/Genie/"
+  },
+  "icon": "images/icon.png",
   "engines": {
     "vscode": "^1.85.0"
   },
