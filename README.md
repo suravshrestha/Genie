@@ -15,6 +15,10 @@ Genie is an empowering tool designed to assist coders in optimizing, documenting
 - **Explaining**: Easily understand code logic and functionality through Genie's intuitive explanations.
 - **Unit Test Generation**: Quickly create Unit Test cases to ensure the robustness of your code. Choose your preferred testing library for seamless integration.
 
+## Demonstration
+
+https://github.com/suravshrestha/Genie/assets/24486999/b3a3d5e9-e85e-4168-8af1-f7d84a90bb83
+
 ## Getting Started
 
 ### Prerequisites
