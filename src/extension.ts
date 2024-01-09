@@ -152,7 +152,7 @@ export function deactivate() {}
 
 // Function to format text with line breaks at word boundaries
 function formatText(text: string) {
-  const maxLineLength = 60;
+  const maxLineLength = 50;
   const paragraphs = text.split(/\s+\n/); // Split the text into paragraphs
 
   let formattedText = "";
