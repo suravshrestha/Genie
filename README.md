@@ -26,7 +26,10 @@ Genie is an empowering tool designed to assist coders in optimizing, documenting
 
 ### Installation
 
-Head over to the [Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=suravshrestha.genie) and install the Genie extension.
+Launch VS Code Quick Open (Ctrl + P), paste the following command, and press enter.
+```
+ext install suravshrestha.genie-coding-companion
+```
 
 ### Usage
 
