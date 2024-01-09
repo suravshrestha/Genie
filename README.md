@@ -1,7 +1,7 @@
 # Genie
 
 <div align="center"> 
-  <img src="./images/logo.png" width=250 height=250 />
+  <img src="./images/icon.png" width=250 height=250 />
 </div>
 
 ## Overview
