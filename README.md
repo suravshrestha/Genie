@@ -17,7 +17,7 @@ Genie is an empowering tool designed to assist coders in optimizing, documenting
 
 ## Demonstration
 
-https://github.com/suravshrestha/Genie/assets/24486999/b3a3d5e9-e85e-4168-8af1-f7d84a90bb83
+https://github.com/suravshrestha/Genie/assets/24486999/a5074c77-346d-4a12-a64e-92936c6b0380
 
 ## Getting Started
 
